@@ -1,0 +1,99 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_material";
+@import "font-awesome";
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+#tabs li > a {
+  font-size: large;
+}
+
+.scope.selected a {
+	background-color: #b0b0b0;
+}
+
+#site_title a {
+  color: #ffffff;
+  font-size: larger;
+}
+
+.table_tools_button {
+  text-decoration:none;
+  color:#333333;
+  font-size:12px;
+  font-weight:bold;
+  padding:0 15px;
+  line-height:32px;
+  height: auto;
+  display:inline-block;
+  text-align:center;
+  background-color:#DDDDDD;
+  border-radius: 6px;
+}
+
+.columns {
+  display: flex;
+  position: relative;
+  flex: 1;
+}
+
+.has_one ~ .has_many_add {
+  display: none !important;
+}
+
+.custom_sidebar
+{
+  height:100%;
+  background-color:#fff;
+  overflow:scroll;
+  width: 100%;
+}
+
+.custom_span
+{
+  display: block;
+  height: 35px;
+  // background-color: #d21919;
+}
+
+.custom_span_button
+{
+  position: relative;
+  padding-top: 8px;
+  display: block;
+  text-align: center;
+  color: white !important;
+}
+.border-table {
+  border: 1px solid !important;
+  text-align: center;
+}
+
+.row-print{
+  display: none !important;
+}
+
+.action_button
+{
+  position: relative;
+  padding-top: 8px;
+  display: block;
+  text-align: center;
+  color: white !important;
+  height: 35px;
+  background-color: #d21919;
+  width: 100%; 
+  margin-top: 15px;
+}
