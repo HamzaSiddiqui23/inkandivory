@@ -4,6 +4,11 @@
 // `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
 // Active Admin source.
 //
+
+$am-theme-primary: #000000;
+$am-theme-accent: #c6c6c6;
+$am-theme-accent-fallback: #ff7547;
+
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
 // Active Admin's got SASS!
@@ -23,6 +28,7 @@
 .scope.selected a {
 	background-color: #b0b0b0;
 }
+
 
 #site_title a {
   color: #ffffff;
@@ -83,17 +89,4 @@
 
 .row-print{
   display: none !important;
-}
-
-.action_button
-{
-  position: relative;
-  padding-top: 8px;
-  display: block;
-  text-align: center;
-  color: white !important;
-  height: 35px;
-  background-color: #d21919;
-  width: 100%; 
-  margin-top: 15px;
 }

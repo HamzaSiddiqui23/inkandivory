@@ -57,3 +57,4 @@ gem "font-awesome-rails"
 gem "active_material", github: "vigetlabs/active_material"
 gem 'prawn-rails'
 gem 'delayed_job_active_record'
+gem 'google_drive'

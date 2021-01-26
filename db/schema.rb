@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_235952) do
+ActiveRecord::Schema.define(version: 2021_01_26_185801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,14 +29,33 @@ ActiveRecord::Schema.define(version: 2021_01_22_235952) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.string "source"
+    t.string "status"
+    t.string "client_representative"
+    t.string "payment_method"
+    t.string "frequency_of_payment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "minimum_due_amount"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "team_name"
+    t.integer "manager_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.string "identification"
     t.string "phone"
     t.string "role"
-    t.string "manager_id"
-    t.string "team"
+    t.integer "manager_id"
+    t.integer "team_id"
     t.date "birthday"
     t.string "bank_name"
     t.string "account_number"
@@ -51,6 +70,8 @@ ActiveRecord::Schema.define(version: 2021_01_22_235952) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "joining_date"
     t.string "status"
+    t.string "resume"
+    t.binary "resume_file"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["user_name"], name: "index_users_on_user_name", unique: true

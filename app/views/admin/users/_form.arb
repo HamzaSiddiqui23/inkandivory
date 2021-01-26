@@ -1,0 +1,30 @@
+active_admin_form_for [:admin, user], :html => { :id => 'admin_new_user_form' } do |f|
+  f.semantic_errors *f.object.errors.keys
+  f.inputs do
+    if params[:reset_password] == 'true'
+      f.input :password
+      f.input :password_confirmation
+    else
+      f.input :first_name
+      f.input :last_name
+      f.input :email
+      f.input :user_name
+      if f.object.new_record?
+        f.input :password
+        f.input :confirm_password
+      end
+      f.input :team, as: :select, collection: Team.all
+      f.input :manager_id, as: :select, collection: User.all
+      f.input :role, as: :select, collection: AppConstant::ROLE, include_blank: false
+      f.input :joining_date, as: :date_picker 
+      f.input :phone
+      f.input :identification
+      f.input :birthday, as: :date_picker
+      f.input :bank_name
+      f.input :account_number, :label => "Bank Account Number"
+      f.input :mailing_address
+      f.input :resume_file, :as => :file
+    end
+  end
+  f.actions
+end
