@@ -21,6 +21,7 @@ class HardWorker
       when "10 mins"
         client.chat_postMessage(channel: u.slack_id, text: "/n :bell: Deadline in 10 minutes for task <http://127.0.0.1:3000/admin/client_tasks/#{task_id}|#{task_title}>! :clock12: /n")
         client.chat_postMessage(channel: m.slack_id, text: "/n :bell: Deadline in 10 minutes for task <http://127.0.0.1:3000/admin/client_tasks/#{task_id}|#{task_title}>! :clock12: /n") 
+      end
     end
   end
 end
