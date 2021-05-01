@@ -1,0 +1,160 @@
+<style>
+#invoice-POS{
+  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+  padding:2mm;
+  margin: 0 auto;
+  width: 75%;
+  background: #FFF;
+  
+  ::selection {background: #f31544; color: #FFF;}
+  ::moz-selection {background: #f31544; color: #FFF;}
+}
+<%i = InternalInvoice.find(resource.id) %>
+</style>
+<div>
+  <div id="invoice-POS" class="row-print">
+
+    <center id="top">
+      <div class="info">
+        <img style= "width: 150px; height: 150px;" src="../../logo.svg"/>
+      </div>
+      <div class="info"> 
+       <h2>Ink & Ivory</h2>
+      </div><!--End Info-->
+    </center><!--End InvoiceTop-->
+    
+    <div id="mid">
+      <div class="info">
+        <p> 
+          Name:  <%=i.user.full_name %>
+          <br/>
+          Email: admin@inkandivory.co
+          <br/>
+          Date: <%= i.invoice_created_date %>
+        </p>
+     </div>
+   </div><!--End Invoice Mid-->
+
+   <div id="bot">
+
+    <div id="table" class="panel_contents panel">
+      <table>
+        <tr class="tabletitle">
+          <td class="item"><h2 class="itemtext">Task Name</h2></td>
+          <td class="Hours"><h2 class="itemtext">Task Rate</h2></td>
+          <td class="Rate"><h2 class="itemtext">Number of Words</h2></td>
+          <td class="Rate"><h2 class="itemtext">Total</h2></td>
+          <td class="Rate"><h2 class="itemtext">Submission Date</h2></td>
+        </tr>
+
+        <% if i.user.role == "Individual Contributor" %>
+        <% i.internal_invoice_tasks.each do |it| %>
+        <tr class="service">
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.task_title %> </p></td>
+          <td class="tableitem"><p class="itemtext"> 0.5</p></td>
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.required_word_count %></p></td>
+          <td class="tableitem"><p class="itemtext"> <%=0.5 * it.client_task.required_word_count %></p></td>
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.task_submitted_date_stamp %></p></td>
+        </tr>
+        <% end %>
+        <% if i.bonus.nil? %>
+        <tr class="tabletitle">
+          <td></td>
+          <td></td>
+          <td class="Rate"><h2 class="itemtext">Grand Total</h2></td>
+          <td class="payment"><h2 class="itemtext">Rs.<%=i.writer_total %></h2></td>
+          <td></td>
+        </tr>
+        <% else %>
+        <tr class="tabletitle">
+        <td></td>
+        <td></td>
+        <td class="Rate"><h2 class="itemtext">Bonus</h2></td>
+        <td class="payment"><h2 class="itemtext">Rs.<%=i.bonus %></h2></td>
+        <td></td>
+        </tr>
+        <tr class="tabletitle">
+          <td></td>
+          <td></td>
+          <td class="Rate"><h2 class="itemtext">Grand Total</h2></td>
+          <td class="payment"><h2 class="itemtext">Rs.<%=i.writer_total + i.bonus %></h2></td>
+          <td></td>
+        </tr>
+        <% end %>
+      </tr>
+        <% else %>
+        <% i.internal_invoice_tasks.each do |it| %>
+        <tr class="service">
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.task_title %> </p></td>
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.pay_rate %></p></td>
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.required_word_count %></p></td>
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.pay_rate * it.client_task.required_word_count %></p></td>
+          <td class="tableitem"><p class="itemtext"> <%=it.client_task.task_submitted_date_stamp %></p></td>
+        </tr>
+        <% end %>
+
+        <tr class="tabletitle">
+        <td></td>
+        <td></td>
+        <td class="Rate"><h2 class="itemtext">Sub Total</h2></td>
+        <td class="payment"><h2 class="itemtext">Rs.<%=i.client_total %></h2></td>
+        <td></td>
+        </tr>
+        <tr class="tabletitle">
+        <td></td>
+        <td></td>
+        <td class="Rate"><h2 class="itemtext">Writers Pay</h2></td>
+        <td class="payment"><h2 class="itemtext">Rs.<%=i.writer_total %></h2></td>
+        <td></td>
+        </tr>
+        <tr class="tabletitle">
+        <td></td>
+        <td></td>
+        <td class="Rate"><h2 class="itemtext">Total</h2></td>
+        <td class="payment"><h2 class="itemtext">Rs.<%=i.client_total - i.writer_total %></h2></td>
+        <td></td>
+        </tr>
+        <tr class="tabletitle">
+        <td></td>
+        <td></td>
+        <td class="Rate"><h2 class="itemtext">Rate</h2></td>
+        <td class="payment"><h2 class="itemtext">50%</h2></td>
+        <td></td>
+        </tr>
+        <% if i.bonus.nil? %>
+        <tr class="tabletitle">
+          <td></td>
+          <td></td>
+          <td class="Rate"><h2 class="itemtext">Grand Total</h2></td>
+          <td class="payment"><h2 class="itemtext">Rs.<%=i.manager_total %></h2></td>
+          <td></td>
+        </tr>
+        <% else %>
+        <tr class="tabletitle">
+        <td></td>
+        <td></td>
+        <td class="Rate"><h2 class="itemtext">Bonus</h2></td>
+        <td class="payment"><h2 class="itemtext">Rs.<%=i.bonus %></h2></td>
+        <td></td>
+        </tr>
+        <tr class="tabletitle">
+          <td></td>
+          <td></td>
+          <td class="Rate"><h2 class="itemtext">Grand Total</h2></td>
+          <td class="payment"><h2 class="itemtext">Rs.<%=i.manager_total + i.bonus %></h2></td>
+          <td></td>
+        </tr>
+        <% end %>
+        <% end %>
+
+      </table>
+    </div><!--End Table-->
+    <div id="legalcopy">
+      <p class="legal"><strong>We Thank You For Your Continued Hard Work And Dedication!</strong> </br>
+        	&#169; Ink & Ivory
+      </p>
+    </div>
+
+  </div><!--End InvoiceBot-->
+</div><!--End Invoice-->
+</div>

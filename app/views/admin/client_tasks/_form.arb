@@ -1,0 +1,19 @@
+active_admin_form_for [:admin, client_task], :html => { :id => 'admin_new_client_task_form' } do |f|
+  f.semantic_errors *f.object.errors.keys
+  f.inputs do
+    if params[:submit_task] == 'true'
+      f.input :submitted_word_count, required: true
+      f.input :submission_file, :as => :file, required: true 
+    else
+      f.input :client_id, as: :select, collection: Client.where(client_representative: current_user.id)
+      f.input :task_title
+      f.input :required_word_count
+      f.input :pay_rate
+      f.input :writer_id, as: :select, collection: User.where(role: 'Individual Contributor', team_id: current_user.team_id)
+      f.input :due_date_time
+      f.input :details
+      f.input :instructions_file, :as => :file
+    end
+  end
+  f.actions
+end

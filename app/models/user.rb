@@ -4,14 +4,30 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-    before_validation :upload_resume, :set_status
-    belongs_to :team
+    before_save :upload_resume
+    before_validation :set_status
+    belongs_to :team, optional: true
+    has_many :client_tasks
+    has_many :client_invoices
+    has_many :internal_invoices
 
     
   validates :first_name, presence: true
   validates :last_name, presence: true
   
     scope :active, lambda { where(status: 'Active') }
+
+    def is_manager?
+      role == "Management"
+    end
+
+    def is_admin?
+      role == "Admin"
+    end
+
+    def is_writer?
+      role == "Individual Contributor"
+    end
 
    def full_name
    		f_name = first_name + ' ' + last_name
@@ -48,6 +64,8 @@ class User < ApplicationRecord
   def get_resume
     session = GoogleDrive::Session.from_config("config.json")
     file = session.file_by_title(resume)
-    file.human_url
+    unless file.nil?
+      file.human_url
+    end
   end
 end

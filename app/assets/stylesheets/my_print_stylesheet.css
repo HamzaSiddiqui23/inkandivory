@@ -1,0 +1,37 @@
+body * {
+  visibility: hidden;
+}
+
+.row-print * {
+  visibility: visible;
+}
+
+.row-print2 * {
+  visibility: visible;
+}
+
+.no-print{
+  display: none;
+}
+.row-print{
+  display: block;
+}
+
+.info{
+  display: block;
+  text-align: left;
+  margin-left: 0;
+}
+
+.tabletitle{
+  font-size: 1em;
+  background: #EEE;
+}
+
+.item{width: 24mm;}
+.itemtext{font-size: 1em;}
+
+#legalcopy{
+  margin-top: 5mm;
+  text-align: center;
+}  

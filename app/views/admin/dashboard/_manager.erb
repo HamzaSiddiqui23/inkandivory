@@ -1,0 +1,52 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<div class= "rowttl">
+  <div class="card">
+     <strong class="card-title ">Tasks Completed</strong>
+     <p class="card-text"><%= ClientTask.where(team_id: current_user.team_id, status: ['Approved', 'Rejected', 'Rejected With Pay'], delivered_date: @start_date..@end_date+1.day).length %></p>
+  </div>
+  <div class="card">
+  <strong class="card-title ">Clients</strong>
+  <p class="card-text"><%= Client.where('client_representative = ? AND status = ?', "#{current_user.id}", "Active").length %></p>
+</div>
+  <div class="card">
+     <strong class="card-title ">New Clients</strong>
+     <p class="card-text"><%= Client.where('client_representative = ? AND DATE(created_at) BETWEEN ? AND ?', "#{current_user.id}",@start_date, @end_date).length %></p>
+  </div>
+  <div class="card">
+     <strong class="card-title ">Total Word Count</strong>
+     <p class="card-text"><%= ClientTask.where(team_id: current_user.team_id, status: ['Approved', 'Rejected', 'Rejected With Pay'], delivered_date: @start_date..@end_date+1.day).map(&:submitted_word_count).inject(0, &:+) %></p>
+  </div>
+  <div class="card">
+  <strong class="card-title ">Total Revenue</strong>
+  <p class="card-text">PKR <%= ClientTask.where(team_id: current_user.team_id, status: ['Approved'], delivered_date: @start_date..@end_date+1.day, client_payment_status: 'Paid').map(&:client_payment_due).inject(0, &:+) %></p>
+</div>
+<div class="card">
+<strong class="card-title ">Payments Pending</strong>
+<p class="card-text">PKR <%= ClientTask.where(team_id: current_user.team_id, status: ['Approved'], client_payment_status: 'Due').map(&:client_payment_due).inject(0, &:+) %></p>
+</div>
+<div class="card">
+<strong class="card-title ">My Comission</strong>
+<p class="card-text">PKR <%= ClientTask.where(team_id: current_user.team_id, status: ['Approved'], delivered_date: @start_date..@end_date+1.day,).map(&:manager_payment_due).inject(0, &:+) %></p>
+</div>
+</div>
+
+<panel "Words by IC - " + @filter_label>
+<div class: "blank_slate_container", id: "dashboard_default_message">
+  <%= column_chart ClientTask.where(team_id: current_user.team_id, status: ['Approved', 'Rejected', 'Rejected With Pay'], delivered_date: @start_date..@end_date+1.day).joins(:writer).group(["users.first_name || ' ' || users.last_name"]).sum(:submitted_word_count),
+  label: 'Words per Writer',
+  xtitle: 'Writers',
+  ytitle: 'Number of words',
+  library: {title: "Words per Writer"}%>
+</div>
+</panel>
+
+<panel "Approved/Rejected Tasks By Team - " + @filter_label>
+<div style="padding-top: 120px;" class: "blank_slate_container", id: "dashboard_default_message">
+<%= column_chart ClientTask.where( team_id: current_user.team_id, status: ['Approved', 'Rejected', 'Rejected With Pay'], delivered_date: @start_date..@end_date+1.day).joins(:team).group(["status","teams.team_name"]).count(),
+label: 'Accepted Tasks By Team',
+xtitle: 'Team',
+ytitle: 'Tasks',
+library: {title: "Accepted Tasks By Team"}%>
+</div>
+</panel>
+</div>

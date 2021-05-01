@@ -7,6 +7,9 @@ class Client < ApplicationRecord
 
   	before_create :set_status
 
+    has_many :client_tasks
+	has_many :client_invoices
+
   	def set_status
   		self.status = "Active"
   	end

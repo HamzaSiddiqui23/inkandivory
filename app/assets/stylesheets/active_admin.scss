@@ -87,6 +87,56 @@ $am-theme-accent-fallback: #ff7547;
   text-align: center;
 }
 
-.row-print{
-  display: none !important;
+.status_tag.approved { background: #37e554; }
+.status_tag.rejected { background: #ff2828; }
+.status_tag.rejected_with_pay { background: #ff9e0c; }
+.status_tag.pending_manager_approval { background: #6b92ff; }
+.status_tag.in_revision { background: #6b92ff; }
+.status_tag.pending_client_approval { background: #6b92ff; }
+.status_tag.in_progress {background: #6b92ff; }
+.status_tag.active {background: #37e554; }
+.status_tag.paid {background: #37e554; }
+.status_tag.due {background: #ff9e0c; }
+
+
+.m-t-35 > div {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.m-t-36 > div {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  float: left;
+  width: 18em;
+  padding: .75rem;
+  margin-bottom: 2rem;
+  border: 0;
+  background-color: #000000;
+  margin: 40px;
+  color: white;
+}
+
+.card > img {
+  margin-bottom: .75rem;
+}
+
+.card-text {
+  font-size: 50px;
+  text-align: right;
+}
+
+.card-title {
+  font-size: 25px;
+}
+
+.rowttl {
+  height: 25em;
 }
