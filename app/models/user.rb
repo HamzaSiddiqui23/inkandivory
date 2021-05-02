@@ -14,6 +14,7 @@ class User < ApplicationRecord
     
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :slack, presence: true
   
     scope :active, lambda { where(status: 'Active') }
 

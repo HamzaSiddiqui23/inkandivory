@@ -15,7 +15,7 @@ active_admin_form_for [:admin, client_task], :html => { :id => 'admin_new_client
       f.input :task_title
       f.input :required_word_count
       f.input :pay_rate
-      f.input :due_date_time
+      f.input :due_date_time, as: :datetime_picker
       f.input :details
       f.input :instructions_file, :as => :file
     end

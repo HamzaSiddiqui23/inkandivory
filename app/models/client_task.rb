@@ -1,10 +1,10 @@
 require 'slack-ruby-client'
 class ClientTask < ApplicationRecord 
-  	before_save :upload_instructions_file, :upload_submission_file
+    after_commit :upload_instructions_file, :upload_submission_file
     before_update :status_change_notifier
   	before_create :set_pending
     before_validation :set_team
-    after_create :send_assigned_notification, :schedule_deadline_notifications
+    after_commit :send_assigned_notification, :schedule_deadline_notifications
 
     belongs_to :client
     belongs_to :team
@@ -16,6 +16,7 @@ class ClientTask < ApplicationRecord
   	validates :required_word_count, presence: true
   	validates :pay_rate, presence: true
   	validates :due_date_time, presence: true
+    validate :due_date_validate
 
     scope :in_progress, lambda { where.not(status: ['Approved', 'Rejected', 'Rejected With Pay'])}
     scope :invoice_client, lambda { where(client_payment_status: 'Due', status: "Approved") }
@@ -23,6 +24,12 @@ class ClientTask < ApplicationRecord
     scope :invoice_manager, lambda { where(manager_payment_status: 'Due', status: "Approved") }
     scope :my_active_tasks, lambda { where(writer: current_user.id).and(where.not(status: ['Approved', 'Rejected', 'Rejected With Pay']))}
     scope :all_my_tasks, lambda { where(writer: current_user.id).and(where.not(status: ['Approved', 'Rejected', 'Rejected With Pay']))}
+
+    def due_date_validate
+      if due_date_time.nil? || due_date_time < Date.current
+        errors.add("Due Date Time", "is invalid.")
+      end
+    end
 
     def schedule_deadline_notifications
       HardWorker.perform_at(due_date_time - 6.hours, id, task_title)
