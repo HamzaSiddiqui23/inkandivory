@@ -97,6 +97,9 @@ $am-theme-accent-fallback: #ff7547;
 .status_tag.active {background: #37e554; }
 .status_tag.paid {background: #37e554; }
 .status_tag.due {background: #ff9e0c; }
+.status_tag.dormant {background: #ff2828; }
+.status_tag.terminated {background: #ff2828; }
+.status_tag.do_not_engage {background: #ff2828; }
 
 
 .m-t-35 > div {

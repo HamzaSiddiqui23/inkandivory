@@ -8,6 +8,7 @@ active_admin_form_for [:admin, user], :html => { :id => 'admin_new_user_form' } 
       f.input :first_name
       f.input :last_name
       f.input :email
+      f.input :status, AppConstant::USER_STATUS, include_blank: false  if current_user.is_manager? || current_user.is_admin?
       f.input :user_name if current_user.is_manager? || current_user.is_admin?
       if f.object.new_record?
         f.input :password
