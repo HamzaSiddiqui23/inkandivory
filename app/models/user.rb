@@ -42,8 +42,9 @@ class User < ApplicationRecord
    		if resume_file !=nil
    			session = GoogleDrive::Session.from_config("config.json")
    			file = session.upload_from_io(self.resume_file.to_io, full_name+"-resume", convert: true)
+         baseFolder = session.collection_by_title("InkAIMS")
         if(is_admin?)
-          adminFolder = session.collection_by_title("Admins")
+          adminFolder = baseFolder.subcollection_by_title("Admin")
           if adminFolder != nil
             afolder = adminFolder.subcollection_by_title(full_name)
             if afolder != nil
@@ -53,12 +54,12 @@ class User < ApplicationRecord
               folder.add(file)
             end
           else
-            adminFolder = session.root_collection.create_subcollection("Admins")
+            adminFolder = baseFolder.create_subcollection("Admin")
             afolder = adminFolder.create_subcollection(full_name)
             afolder.add(file)
           end
         else
-          teamfolder = session.collection_by_title("Team "+team.team_name)
+          teamfolder = baseFolder.subcollection_by_title("Team "+team.team_name)
           if teamfolder != nil
             folder = teamfolder.subcollection_by_title(full_name)
             if folder != nil
@@ -68,7 +69,7 @@ class User < ApplicationRecord
               folder.add(file)
             end
           else
-            teamfolder = session.root_collection.create_subcollection("Team "+team.team_name)
+            teamfolder = session.baseFolder.create_subcollection("Team "+team.team_name)
             folder = teamfolder.create_subcollection(full_name)
             folder.add(file)
           end
@@ -81,8 +82,7 @@ class User < ApplicationRecord
   def get_resume
     session = GoogleDrive::Session.from_config("config.json")
     file = session.file_by_title(resume)
-    unless file.nil?
-      file.human_url
-    end
+    file.human_url
+    #send_file file, :disposition => 'attachment'
   end
 end

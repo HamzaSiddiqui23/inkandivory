@@ -13,10 +13,10 @@ active_admin_form_for [:admin, user], :html => { :id => 'admin_new_user_form' } 
         f.input :password
         f.input :confirm_password
       end
-      f.input :slack_id if current_user.is_manager? || current_user.is_admin?
+      f.input :slack_id
       f.input :team, as: :select, collection: Team.all  if current_user.is_manager? || current_user.is_admin?
-      f.input :manager_id, as: :select, collection: User.all  if current_user.is_manager? || current_user.is_admin?
-      f.input :role, as: :select, collection: AppConstant::ROLE, include_blank: false if current_user.is_manager? || current_user.is_admin?
+      f.input :manager_id, as: :select, collection: User.all if current_user.is_admin?
+      f.input :role, as: :select, collection: AppConstant::ROLE, include_blank: false if current_user.is_admin?
       f.input :joining_date, as: :date_picker   if current_user.is_manager? || current_user.is_admin?
       f.input :phone
       f.input :identification

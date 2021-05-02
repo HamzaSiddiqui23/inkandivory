@@ -85,7 +85,8 @@ class ClientTask < ApplicationRecord
    		if instructions_file !=nil
    			session = GoogleDrive::Session.from_config("config.json")
    			file = session.upload_from_io(self.instructions_file.to_io, "Instructions-"+task_title, convert: true)
-        teamfolder = session.collection_by_title("Team "+ writer.team.team_name)
+        baseFolder = session.collection_by_title("InkAIMS")
+        teamfolder = baseFolder.subcollection_by_title("Team "+ writer.team.team_name)
         if teamfolder != nil
           folder = teamfolder.subcollection_by_title( writer.full_name)
           if folder != nil
@@ -95,7 +96,7 @@ class ClientTask < ApplicationRecord
             folder.add(file)
           end
         else
-          teamfolder = session.root_collection.create_subcollection("Team "+ writer.team.team_name)
+          teamfolder = baseFolder.create_subcollection("Team "+ writer.team.team_name)
           folder = teamfolder.create_subcollection(writer.full_name)
           folder.add(file)
         end
@@ -107,9 +108,10 @@ class ClientTask < ApplicationRecord
     def upload_submission_file
    		if submission_file !=nil
    			session = GoogleDrive::Session.from_config("config.json")
+         baseFolder = session.subcollection_by_title("InkAIMS")
    			self.revision_number = self.revision_number + 1
    			file = session.upload_from_io(self.submission_file.to_io, task_title+"-v"+revision_number.to_s, convert: true)
-        teamfolder = session.collection_by_title("Team "+ writer.team.team_name)
+        teamfolder = baseFolder.collection_by_title("Team "+ writer.team.team_name)
         if teamfolder != nil
           folder = teamfolder.subcollection_by_title(writer.full_name)
           if folder != nil
@@ -119,7 +121,7 @@ class ClientTask < ApplicationRecord
             folder.add(file)
           end
         else
-          teamfolder = session.root_collection.create_subcollection("Team "+writer.team.team_name)
+          teamfolder = baseFolder.create_subcollection("Team "+writer.team.team_name)
           folder = teamfolder.create_subcollection(writer.full_name)
           folder.add(file)
         end
