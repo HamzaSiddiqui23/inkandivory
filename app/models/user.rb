@@ -42,7 +42,7 @@ class User < ApplicationRecord
    		if resume_file !=nil
    			session = GoogleDrive::Session.from_config("config.json")
    			file = session.upload_from_io(self.resume_file.to_io, full_name+"-resume", convert: true)
-        if(is_admin)
+        if(is_admin?)
           adminFolder = session.collection_by_title("Admins")
           if adminFolder != nil
             afolder = adminFolder.subcollection_by_title(full_name)
