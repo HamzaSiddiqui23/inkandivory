@@ -1,9 +1,12 @@
 {
-  "client_id": "772726651481-sliok3i28hka6omn1rceh1kn3k8oedmd.apps.googleusercontent.com",
-  "client_secret": "9uW9SHbnW4Jn6rr-5dhvyErd",
-  "scope": [
-    "https://www.googleapis.com/auth/drive",
-    "https://spreadsheets.google.com/feeds/"
-  ],
-  "refresh_token": "1//03dqhxYylusxdCgYIARAAGAMSNwF-L9IrW6sXpSA03uJwetoIdO0RQt9c8-Rm89JXlpH2tZGkcrDNyst7mxIDLrePaeSrB2Z8StY"
+  "type": "service_account",
+  "project_id": "inkandivory",
+  "private_key_id": "b440837589a187a7cb8a7fb941750b3dc73184b3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUE2XzCFsfXxHN\npyAImMIy87kImyJzsqOBumgVSDBuFizNCgh1DWmlDeHwydzYi5cp1096h/7a6p3V\nsOlvKaj1849ha7StP6s3wQkXevaMum6YRXsP+ewq5K7cor8o35XlUxpO1hj0CoXO\nbNj4Zb3WxpEgHRhe88z6ficF4eHnt+eHh+Vtgd7tdZSjC/s15bAY2i8u3uglWDtU\nInoL+HxBSBHF6UdecJoH8eYr8H/Vs+EPwaNT4P7wbtkUj2LbdEyVFtJPfxREC6RB\nRV88Cphz2WoM3msicnqJS+kevrM6wh9kGfdM2RUaj1jVllfMpgnSEFZ4yS9MS76X\nHADbV9tdAgMBAAECggEAHhM6LAMNWR+UWMPQqSdwsuUZYn0Nn7a/tVAIHqyEIbiH\nVfSMSn1CdCPJ3Onjpdn17/sWzFuo6sbG510VXaxcx7RoqvopP0B+OYPolCnd+Qsf\nT/zafOOGeHbBzYxO6675hPIKExANrd4oJ6QMCP30tBao0hMON7j/Yq6tPgpQjRmn\nZXkPXMlms+bwiH3jHgFNro9uyRc0JkaKZb/giZbQQwqGPlTyubsT48IvTbJ8Ef2X\n+S7xufTbAlvYamysT/5Yqz/1zYwabmNh7f13nFuHk8sDj9yrdQpWgME3/QSbRvuE\nv0FGiWSZyYvaWwc5F2g+m5n7f8LW8Jlypqre1EgHiQKBgQDsuLzl8HQusENvTQ70\nPAY+F8LfG9cWSI53mYq12jZALRRCyiougx6jrfsFcKJPjrP8zQpmR+BiEzvvc6MJ\nDHccDtoWvcXjUc+6X28oQovWwXUNfTQffY3zaSDybFINWGTciqhYvc+mcpjOzTW5\n/DnwqWKY29e5YgqtGl4Q99hYlwKBgQDlWNWNWQEILkbK1v73VWtvlYaqklecKitr\nW45kryjs3U/QSC13iVpKj1gGsQJye0ngqIz1vIwutQPmbQ3hQTnhNPaTM8x5GYSR\nUNu8Ez7a1hLY36YEa++dBWbveUfI/MkF9FOoEh45NyZqHJtWnxSdtUAVKDMblYQh\n9K89+TwWKwKBgHb685bvILZGyd4rcRS5Bro23y+coqMEnPboKZv1rcbb4Y8gZcsz\nBDdovv6g+jPamgS6WjvGbLVezYUxLgTiSwvDO0Kq58e12x7l0Mz/haHPYrIA+C3L\nwYlSkcjHQQaMI0XmO28/GBulBcELy7FLYSPhPzltZiQ7bvpKgnUs3YTJAoGBAK2o\nzkrxEe7323LLyNPPQkKDniyaEuyUobvw36ktWHfCPCUiAgt5XX0HfUfT0F6PLCmI\ndvO7iQn01rcr7E6b7Q+x4uMjXbh0sgS2jSukBvv9DNhawIKomA71gDPkSY7OmgiA\nMLgav/fi4puGfbjhS+L+0z8x6UEBvcNYWzk5911xAoGAA1tul0cmgxqfibR6Djii\n4OqmI6yrGZxep03O8Dl/rmyfx5skkwY0PZE/lBBGMQDR8E9K5UagHLWjJXAnGG11\nI5v8P+o+hnqnQu3hn0PjniGE55kc/ok8mF71FGokeqH3ReWaE8F+7qm6e7uTVw7J\nvc3qjhykZ/uxsOisfDR02qw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "inkaims@inkandivory.iam.gserviceaccount.com",
+  "client_id": "106161512602095018437",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/inkaims%40inkandivory.iam.gserviceaccount.com"
 }

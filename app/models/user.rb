@@ -42,19 +42,36 @@ class User < ApplicationRecord
    		if resume_file !=nil
    			session = GoogleDrive::Session.from_config("config.json")
    			file = session.upload_from_io(self.resume_file.to_io, full_name+"-resume", convert: true)
-        teamfolder = session.collection_by_title("Team "+team.team_name)
-        if teamfolder != nil
-          folder = teamfolder.subcollection_by_title(full_name)
-          if folder != nil
-            folder.add(file)
+        if(is_admin)
+          adminFolder = session.collection_by_title("Admins")
+          if adminFolder != nil
+            afolder = adminFolder.subcollection_by_title(full_name)
+            if afolder != nil
+              afolder.add(file)
+            else
+              afolder = adminFolder.create_subcollection(full_name)
+              folder.add(file)
+            end
           else
+            adminFolder = session.root_collection.create_subcollection("Admins")
+            afolder = adminFolder.create_subcollection(full_name)
+            afolder.add(file)
+          end
+        else
+          teamfolder = session.collection_by_title("Team "+team.team_name)
+          if teamfolder != nil
+            folder = teamfolder.subcollection_by_title(full_name)
+            if folder != nil
+              folder.add(file)
+            else
+              folder = teamfolder.create_subcollection(full_name)
+              folder.add(file)
+            end
+          else
+            teamfolder = session.root_collection.create_subcollection("Team "+team.team_name)
             folder = teamfolder.create_subcollection(full_name)
             folder.add(file)
           end
-        else
-          teamfolder = session.root_collection.create_subcollection("Team "+team.team_name)
-          folder = teamfolder.create_subcollection(full_name)
-          folder.add(file)
         end
         self.resume = file.name
         self.resume_file = nil
