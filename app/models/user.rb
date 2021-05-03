@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
     before_save :upload_resume
-    before_validation :set_status
     belongs_to :team, optional: true
     has_many :client_tasks
     has_many :client_invoices
@@ -14,7 +13,6 @@ class User < ApplicationRecord
     
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :slack_id, presence: true
   
     scope :active, lambda { where(status: 'Active') }
 
@@ -37,10 +35,6 @@ class User < ApplicationRecord
    def full_name
    		f_name = first_name + ' ' + last_name
     	f_name.titleize
-   end
-
-   def set_status
-    self.status = "Active"
    end
 
    def upload_resume

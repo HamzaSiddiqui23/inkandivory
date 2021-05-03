@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
-  menu parent: 'Users', if: proc{ current_user.is_admin?  }
-	permit_params :first_name, :joining_date, :slack_id, :last_name, :user_name, :resume_file, :resume, :password, :password_confirmation, :team_id, :manager_id, :role, :email,:phone, :identification, :birthday, :bank_name, :account_number, :mailing_address
+  menu if: proc{ current_user.is_admin?  }
+	permit_params :status, :first_name, :joining_date, :slack_id, :last_name, :user_name, :resume_file, :resume, :password, :password_confirmation, :team_id, :manager_id, :role, :email,:phone, :identification, :birthday, :bank_name, :account_number, :mailing_address
 	actions :all, except: :destroy
 	filter :first_name
 	filter :last_name
@@ -10,7 +10,9 @@ ActiveAdmin.register User do
   scope :active
 
 	index do
-    actions
+    column do |v|
+			link_to 'View', "users/#{v.id}"  
+		end
 		column :first_name
 		column :last_name
 		column :team

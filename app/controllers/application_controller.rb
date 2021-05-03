@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
     def authenticate_user!
       unless current_user.nil?
         unless current_user.enabled?
-          redirect_to destroy_admin_user_session_path
+          redirect_to destroy_user_session_path
         end
       else
-       redirect_to new_admin_user_session_path
+       redirect_to new_user_session_path
      end
    end
   end

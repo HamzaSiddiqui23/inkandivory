@@ -1,5 +1,5 @@
 ActiveAdmin.register Team do
-	menu parent: 'Teams', if: proc{ current_user.is_manager? || current_user.is_admin?  }
+	menu if: proc{ current_user.is_manager? || current_user.is_admin?  }
 	permit_params :team_name, :manager_id
 	
 	actions :all, except: :destroy
@@ -17,7 +17,9 @@ ActiveAdmin.register Team do
 	  end
 
 	index do 
-		actions
+		column do |v|
+			link_to 'View', "teams/#{v.id}"  
+		end
 		column :team_name
 		column :manager do |m|
 			m.manager_id.nil? ? nil : User.find(m.manager_id).full_name

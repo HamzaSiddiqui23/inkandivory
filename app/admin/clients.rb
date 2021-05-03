@@ -1,5 +1,5 @@
 ActiveAdmin.register Client do
-	menu parent: 'Clients', if: proc{ current_user.is_manager? || current_user.is_admin?  }
+	menu if: proc{ current_user.is_manager? || current_user.is_admin?  }
 	permit_params :name, :client_representative, :frequency_of_payment, :minimum_due_amount, :source, :phone, :email, :payment_method, :status
 
 	actions :all, except: :destroy
@@ -11,7 +11,9 @@ ActiveAdmin.register Client do
 	scope("My Clients", default: true,if: proc{ current_user.is_manager?  }) { |scope| scope.where(client_representative: current_user.id)}
 
 	index do
-		actions
+		column do |v|
+			link_to 'View', "clients/#{v.id}"  
+		end
 		column :name
 		column :client_representative do |m|
         	m.client_representative.nil? ? nil : User.find(m.client_representative).full_name

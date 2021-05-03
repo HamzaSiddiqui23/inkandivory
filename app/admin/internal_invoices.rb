@@ -70,7 +70,9 @@ ActiveAdmin.register InternalInvoice do
      end
 
      index do
-        actions
+        column do |v|
+			link_to 'View', "internal_invoices/#{v.id}"  
+		end
         column :status do |s|
             status_tag (s.status)
         end

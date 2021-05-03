@@ -38,7 +38,9 @@ ActiveAdmin.register ClientInvoice do
      end
 
      index do
-        actions
+        column do |v|
+			link_to 'View', "client_invoices/#{v.id}"  
+		end
 		column :client
         column :status do |s|
             status_tag (s.status)
