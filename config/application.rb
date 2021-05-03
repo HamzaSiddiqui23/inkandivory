@@ -14,6 +14,7 @@ module Inkandivory
     config.eager_load_paths << Rails.root.join('lib')
 
     config.time_zone = 'Islamabad'
+    config.assets.initialize_on_precompile = false
 
     # Configuration for the application, engines, and railties goes here.
     #
