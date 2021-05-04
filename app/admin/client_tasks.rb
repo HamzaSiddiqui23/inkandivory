@@ -63,7 +63,7 @@ ActiveAdmin.register ClientTask do
 
 	  batch_action :create_manager_invoice, if: proc{ current_user.is_admin?  } do |ids|
 		tasks = ClientTask.where(id: ids)
-		inv = InternalInvoice.create!(invoice_created_date: Date.today, user_id: tasks.first.writer.manager_id, status: 'Due',writer_total: tasks.map(&:writer_payment_due).inject(0, &:+), client_total: tasks.map(&:client_payment_due).inject(0, &:+) , manager_total: tasks.map(&:manager_payment_due).inject(0, &:+))
+		inv = InternalInvoice.create!(invoice_created_date: Date.today, user_id: tasks.first.user_id, status: 'Due',writer_total: tasks.map(&:writer_payment_due).inject(0, &:+), client_total: tasks.map(&:client_payment_due).inject(0, &:+) , manager_total: tasks.map(&:manager_payment_due).inject(0, &:+))
 		for task in tasks do
 			InternalInvoiceTask.create!(internal_invoice_id: inv.id, client_task_id: task.id)
 		end
@@ -197,6 +197,7 @@ ActiveAdmin.register ClientTask do
 					w.client
 				end
 			end
+			row :user
 			row :required_word_count
 			row :pay_rate if current_user.is_admin? || current_user.is_manager?
 			row :team

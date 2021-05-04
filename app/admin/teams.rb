@@ -29,7 +29,7 @@ ActiveAdmin.register Team do
 	form do |f|
 		f.inputs do
 			f.input :team_name
-			f.input :manager_id, as: :select, collection: User.where(team_id: object.id)
+			f.input :manager_id, as: :select, collection: User.where(role: 'Management').or(User.where(role: "Admin"))
 			actions
 		end
 	end

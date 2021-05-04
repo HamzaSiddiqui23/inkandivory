@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_134049) do
+ActiveRecord::Schema.define(version: 2021_05_04_002511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_134049) do
     t.datetime "revision_submission_date"
     t.string "payment_type", default: "Submitted Word Count"
     t.integer "advance", default: 0
+    t.integer "user_id"
   end
 
   create_table "clients", force: :cascade do |t|

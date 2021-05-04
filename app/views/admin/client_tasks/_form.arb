@@ -12,6 +12,7 @@ active_admin_form_for [:admin, client_task], :html => { :id => 'admin_new_client
         f.input :client_id, as: :select, collection: Client.all
         f.input :writer_id, as: :select, collection: User.all
       end
+      f.input :user, as: :select, collection: User.find(current_user.id)
       f.input :task_title
       f.input :required_word_count
       f.input :pay_rate

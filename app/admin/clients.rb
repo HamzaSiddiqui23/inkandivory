@@ -6,7 +6,7 @@ ActiveAdmin.register Client do
 
 	filter :name
 	filter :status, as: :select, collection: AppConstant::CLIENT_STATUS, include_blank: true
-	filter :client_representative, as: :select, collection: User.where(role: "Management")
+	filter :client_representative, as: :select, collection: User.where(role: "Management").or(User.where(role: "Admin"))
 
 	scope("My Clients", default: true,if: proc{ current_user.is_manager?  }) { |scope| scope.where(client_representative: current_user.id)}
 
