@@ -17,6 +17,7 @@ class ClientTask < ApplicationRecord
   	validates :pay_rate, presence: true
   	validates :due_date_time, presence: true
     validate :due_date_validate
+    validate: user_id, presence: true
 
     scope :in_progress, lambda { where.not(status: ['Approved', 'Rejected', 'Rejected With Pay'])}
     scope :invoice_client, lambda { where(client_payment_status: 'Due', status: "Approved") }
