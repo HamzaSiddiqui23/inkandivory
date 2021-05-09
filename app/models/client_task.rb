@@ -15,6 +15,7 @@ class ClientTask < ApplicationRecord
   	validates :client_id, presence: true
   	validates :required_word_count, presence: true
   	validates :pay_rate, presence: true
+    validates :user_id, presence: true
   	validates :due_date_time, presence: true
     validate :due_date_validate
 
