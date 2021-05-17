@@ -90,13 +90,13 @@ ActiveAdmin.register ClientTask do
 	
 	action_item :accept_task, :only => :show do
 	  	if resource.status == "Pending" && current_user == resource.writer
-	  		link_to 'Start Task', archiving_task_admin_client_task_path(resource.id), :id => 'accept_task_button'
+	  		link_to 'Start Task', accepting_task_admin_client_task_path(resource.id), :id => 'accept_task_button'
 		end
 	end
 
 	action_item :archive_task, :only => :show do
 		if resource.status != "Complete" || resource.status!="Rejected" || resource.status!="Rejected With Pay" && current_user.role != 'Individual Contributor'
-			link_to 'Archive Task', accepting_task_admin_client_task_path(resource.id), :id => 'archive_task_button'
+			link_to 'Archive Task', archiving_task_admin_client_task_path(resource.id), :id => 'archive_task_button'
 	  end
   	end
 
