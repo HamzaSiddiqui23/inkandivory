@@ -22,11 +22,15 @@ ActiveAdmin.register ClientTask do
 	}
 
 	action_item :edit,  only: [ :show ] , if: proc { current_user.is_admin? || current_user.is_manager? } do
-		link_to "Edit Client Task", edit_resource_path(resource)
+		link_to "Edit Task", edit_resource_path(resource)
+	end
+
+	action_item :destroy,  only: [ :show ] , if: proc { current_user.is_admin? } do
+		link_to "Delete Task", destroy_resource_path(resource)
 	end
 
 	action_item :new,  only: [ :index ] , if: proc { current_user.is_admin? || current_user.is_manager? } do
-		link_to "New Client Task", new_resource_path
+		link_to "New Task", new_resource_path
 	end
 
 	batch_action :create_client_invoice_with_required_wc, if: proc{ current_user.is_manager? || current_user.is_admin?  } do |ids|
