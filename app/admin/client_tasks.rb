@@ -12,7 +12,7 @@ ActiveAdmin.register ClientTask do
 	scope("My Finished Tasks", if: proc{ current_user.is_writer?  }) { |scope| scope.where(writer_id: current_user.id).and(scope.where(status: ['Approved', 'Rejected', 'Rejected With Pay'])) }
 	scope("All My Tasks", if: proc{ current_user.is_writer?  }) { |scope| scope.where(writer_id: current_user.id)}
 
-	permit_params :user, :status, :client_id, :task_title, :required_word_count, :pay_rate, :writer_id, :due_date_time, :details, :delivered_date, :submitted_word_count, :submission_file, :instructions_file, :status, :client_payment_status, :writer_payment_status,  :manager_payment_status
+	permit_params :user_id, :status, :client_id, :task_title, :required_word_count, :pay_rate, :writer_id, :due_date_time, :details, :delivered_date, :submitted_word_count, :submission_file, :instructions_file, :status, :client_payment_status, :writer_payment_status,  :manager_payment_status
 	actions :all
 	form partial: 'form'
 	config.batch_actions = true
