@@ -7,7 +7,7 @@ active_admin_form_for [:admin, client_task], :html => { :id => 'admin_new_client
     else
       if current_user.is_manager?
         f.input :client_id, as: :select, collection: Client.where(client_representative: current_user.id)
-        f.input :writer_id, as: :select, collection: User.where(role: 'Individual Contributor', team_id: current_user.team_id)
+        f.input :writer_id, as: :select, collection: User.where(role: 'Individual Contributor')
       elsif current_user.is_admin?
         f.input :client_id, as: :select, collection: Client.all
         f.input :writer_id, as: :select, collection: User.all

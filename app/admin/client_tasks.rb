@@ -13,12 +13,12 @@ ActiveAdmin.register ClientTask do
 	scope("All My Tasks", if: proc{ current_user.is_writer?  }) { |scope| scope.where(writer_id: current_user.id)}
 
 	permit_params :status, :client_id, :task_title, :required_word_count, :pay_rate, :writer_id, :due_date_time, :details, :delivered_date, :submitted_word_count, :submission_file, :instructions_file, :status, :client_payment_status, :writer_payment_status,  :manager_payment_status
-	actions :all, except: [:destroy]
+	actions :all
 	form partial: 'form'
 	config.batch_actions = true
 
 	config.action_items.delete_if { |item|
-			item.name == :new || item.name == :edit
+			item.name == :new || item.name == :edit || item.name == :destroy
 	}
 
 	action_item :edit,  only: [ :show ] , if: proc { current_user.is_admin? || current_user.is_manager? } do

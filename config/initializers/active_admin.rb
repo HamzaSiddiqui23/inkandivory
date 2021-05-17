@@ -332,4 +332,11 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
+  class ActiveAdmin::Views::Pages::Index
+    protected
+  
+    def render_blank_slate
+      render_empty_results
+    end
+  end
 end

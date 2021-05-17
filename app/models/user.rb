@@ -41,7 +41,7 @@ class User < ApplicationRecord
    		if resume_file !=nil
    			session = GoogleDrive::Session.from_config("config.json")
    			file = session.upload_from_io(self.resume_file.to_io, full_name+"-resume", convert: true)
-         baseFolder = session.collection_by_title("InkAIMS")
+        baseFolder = session.collection_by_title("InkAIMS")
         if(is_admin?)
           adminFolder = baseFolder.subcollection_by_title("Admin")
           if adminFolder != nil
@@ -68,7 +68,7 @@ class User < ApplicationRecord
               folder.add(file)
             end
           else
-            teamfolder = session.baseFolder.create_subcollection("Team "+team.team_name)
+            teamfolder = baseFolder.create_subcollection("Team "+team.team_name)
             folder = teamfolder.create_subcollection(full_name)
             folder.add(file)
           end
