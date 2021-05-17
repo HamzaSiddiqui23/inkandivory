@@ -95,7 +95,7 @@ ActiveAdmin.register ClientTask do
 	end
 
 	action_item :archive_task, :only => :show do
-		if resource.status != "Complete" || resource.status!="Rejected" || resource.status!="Rejected With Pay" && current_user.role != 'Individual Contributor'
+		if resource.status != "Complete" || resource.status!="Rejected" || resource.status!="Rejected With Pay" || resource.status!="Archived" && current_user.role != 'Individual Contributor'
 			link_to 'Archive Task', archiving_task_admin_client_task_path(resource.id), :id => 'archive_task_button'
 	  end
   	end
@@ -149,7 +149,7 @@ ActiveAdmin.register ClientTask do
 	end
 
 	action_item :add_advance, :only => :show do
-		if current_user.role != 'Individual Contributor'
+		if current_user.role != 'Individual Contributor' && resource.status!="Archived"
 			link_to 'Add Advance', add_advance_admin_client_task_path(resource.id, status: 'Rejected'), :id => 'advance_button'
 	  	end
   	end
