@@ -25,10 +25,6 @@ ActiveAdmin.register ClientTask do
 		link_to "Edit Task", edit_resource_path(resource)
 	end
 
-	action_item :destroy,  only: [ :show ] , if: proc { current_user.is_admin? } do
-		link_to "Delete Task", destroy_resource_path(resource)
-	end
-
 	action_item :new,  only: [ :index ] , if: proc { current_user.is_admin? || current_user.is_manager? } do
 		link_to "New Task", new_resource_path
 	end
@@ -82,12 +78,27 @@ ActiveAdmin.register ClientTask do
   	  end
   	  redirect_back fallback_location: root_path
 	 end
+	 	
+	 member_action :archiving_task do
+  	  if resource.update!(status: 'Archived')
+  	    flash[:error] = 'Task Archived!'
+  	  else
+  	    flash[:error] = 'Something went wrong, Please try later!'
+  	  end
+  	  redirect_back fallback_location: root_path
+	 end
 	
 	action_item :accept_task, :only => :show do
 	  	if resource.status == "Pending" && current_user == resource.writer
-	  		link_to 'Start Task', accepting_task_admin_client_task_path(resource.id), :id => 'accept_task_button'
+	  		link_to 'Start Task', archiving_task_admin_client_task_path(resource.id), :id => 'accept_task_button'
 		end
 	end
+
+	action_item :archive_task, :only => :show do
+		if resource.status != "Complete" || resource.status!="Rejected" || resource.status!="Rejected With Pay" && current_user.role != 'Individual Contributor'
+			link_to 'Archive Task', accepting_task_admin_client_task_path(resource.id), :id => 'archive_task_button'
+	  end
+  	end
 
 	
     member_action :move_to_revision do 
